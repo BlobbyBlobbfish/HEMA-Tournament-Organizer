@@ -1,0 +1,53 @@
+/*<!-- AWAD KHALID; MR. CAMPBELL; PROGRAMMING 15-1 2/14/2020 -->*/
+body {
+  background-color: #EB7151;
+  font-family: 'Solway', serif;
+  font-size: 16px;
+  text-align: left;
+}
+
+header {
+  margin-top: -10px;
+  position : fixed;
+  right: 0px;
+  width : 100%;
+  height : 150px;
+  color: #FFE99A;
+  background-color: #293329;
+  font-size: 36px;
+  text-align: center;
+  font-family: "Odibee Sans", serif;
+}
+
+table {
+  margin: 5px auto 0px auto;
+  text-align: center;
+  border: solid 5px;
+  padding : 5px;
+  width : 1000px;
+}
+
+th, td {
+  border-right: solid #EEFFF7 5px;
+  border-left: solid #EEFFF7 5px;
+}
+
+th {
+  font-size : 30px;
+  font-family : "Odibee Sans", serif;
+}
+
+button {
+	display : inline;
+	position : relative;
+	left : 42.1%;
+	margin-top : 5px;
+	margin-bottom : 5px;
+	font-size : 18px;
+	background-color: #302E3E;
+  font-family: 'Righteous', serif;
+	border : #FFFFFF;
+	border-radius : 12px;
+	color: #FFFFFF;
+	outline : none;
+}
