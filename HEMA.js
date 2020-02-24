@@ -65,3 +65,21 @@ function poolPress(array) {
     }
   }
 }
+function fight(fighter1,fighter2,object){
+    let skill1 = object[fighter1].skill;
+    let skill2 = object[fighter2].skill;
+    //odds are in terms of fighter 1 winning 
+    if (skill1 != skill2) {
+        let odds = (skill1 /(skill1 + skill2));
+    }
+    else {
+        let odds = 0.5;
+    }
+    x = Math.random();
+    if(x < odds){
+        return(fighter1);
+    }
+    else if(x >= odds){
+        return(fighter2);
+    }
+}
