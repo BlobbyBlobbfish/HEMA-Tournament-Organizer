@@ -86,3 +86,9 @@ function fight(fighter1,fighter2,object){
 
     }
 }
+function divHide(){
+    let list = getElementByTagName('div');
+    for(x = 0; x < list.length; x++){
+        list[x].style.display = 'none';
+    }
+}
