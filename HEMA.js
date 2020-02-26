@@ -9,7 +9,7 @@ function randomOrderArray(array){
     let num1; 
     let num2;
     let temp;
-    for(x = 0; x < 1000; x++){
+    for(x = 0; x < (69 * array.length); x++){
         num1 = Math.floor(array.length * Math.random());
         num2 = Math.floor(array.length * Math.random());
         temp = array[num1];
