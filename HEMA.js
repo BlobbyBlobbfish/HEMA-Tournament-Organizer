@@ -77,9 +77,12 @@ function fight(fighter1,fighter2,object){
     }
     x = Math.random();
     if(x < odds){
+        object[fighter1].score += 1;
         return(fighter1);
     }
     else if(x >= odds){
+        object[fighter2].score += 1;
         return(fighter2);
+
     }
 }
