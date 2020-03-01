@@ -228,7 +228,5 @@ function elimRound(compArray, object){
                 }
         }
 
-	console.log(compArray.length);
-
         createTab(compArray.length);
 }
