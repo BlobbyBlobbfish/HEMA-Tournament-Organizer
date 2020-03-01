@@ -158,18 +158,24 @@ function orderArray(array,object){
 }
 
 
+// This function enables the elimination round of the Hema tourament. 
+// It takes in the array of array of pairs of players' names, the number of pairs always to a power of 2.
+// It also takes the object on the players' personal details.
+// Afterwards, it will display the results of the elimination round through a converging table.
 function elimRound(compArray, object){     
 
 	let newCompArray = [];
 	newCompArray.push(compArray);
 
-
+	// Functions runs a single game in the elimination round using the fight function, and returns the winner. 
 	function game (i, x, roundWinners){
 		let winner = fight(newCompArray[i][x][0],newCompArray[i][x][1],object);
 		roundWinners.push(winner);
 		return(newCompArray[i][x][0] + "<br> vs " + newCompArray[i][x][1] + "<br>" + winner + "wins");
 	}
 
+	// Function takes in an array of names and sort them into an array of fighting pairs
+	//for the next stage in the elimination round, thus an array of arrays.
 	function sortRound(array) {
 		let x = array.length;
 		let miniArray = [];
@@ -186,6 +192,7 @@ function elimRound(compArray, object){
 		return (returnArray);
 	}
 
+	//Function determines how many rows on the table would be necessary, given the number of pairs of competitors. 
 	function powerRow(num) {
                 base = 2;	
                 for (let i = 1; i < num; i++) { 
@@ -199,6 +206,7 @@ function elimRound(compArray, object){
                 }
         }
 
+	//Functions formats the number of tabs in a row, and runs the game function.
         function elimTab (conCount, cs, i, roundWinners) {
                 console.log(cs);
                 let table = document.getElementById("tabElim");
@@ -211,6 +219,7 @@ function elimRound(compArray, object){
                 }	
         }
 
+	// Function creates table rows, and elimTab function. 
         function createTab(conCount) {
                 let newCount = powerRow(conCount)
 
