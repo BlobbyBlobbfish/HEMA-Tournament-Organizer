@@ -156,3 +156,79 @@ function orderArray(array,object){
     }
 
 }
+
+
+function elimRound(compArray, object){     
+
+	let newCompArray = [];
+	newCompArray.push(compArray);
+
+
+	function game (i, x, roundWinners){
+		let winner = fight(newCompArray[i][x][0],newCompArray[i][x][1],object);
+		roundWinners.push(winner);
+		return(newCompArray[i][x][0] + "<br> vs " + newCompArray[i][x][1] + "<br>" + winner + "wins");
+	}
+
+	function sortRound(array) {
+		let x = array.length;
+		let miniArray = [];
+		let returnArray = [];
+
+		for (i = 0; i < x; i++){
+			miniArray.push(array[i]);
+			if (miniArray.length == 2) {
+				returnArray.push(miniArray);
+				miniArray = [];			
+			} 	
+		}
+
+		return (returnArray);
+	}
+
+	function powerRow(num) {
+                base = 2;	
+                for (let i = 1; i < num; i++) { 
+                        if (num == 1){
+                                return (1);
+                        }
+                        else if (base == num) {
+                                return (i + 1);
+                        }
+                        base = base * 2
+                }
+        }
+
+        function elimTab (conCount, cs, i, roundWinners) {
+                console.log(cs);
+                let table = document.getElementById("tabElim");
+                let row = table.insertRow(document.getElementById("tabElim").rows.length);
+
+                for (let x = 0; x < conCount; x++) {
+                        let cell = row.insertCell(x);
+                        cell.colSpan = cs;
+			cell.innerHTML = (game(i, x, roundWinners));
+                }	
+        }
+
+        function createTab(conCount) {
+                let newCount = powerRow(conCount)
+
+
+                let cs = 1;
+
+		let roundWinners = [];
+                
+                for (let i = 0; i < newCount; i++) { 
+                        elimTab(conCount, cs, i, roundWinners);
+                        conCount = conCount / 2;
+                        cs = cs * 2;
+			newCompArray.push(sortRound(roundWinners));
+			roundWinners = [];
+                }
+        }
+
+	console.log(compArray.length);
+
+        createTab(compArray.length);
+}
