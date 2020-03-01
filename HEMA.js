@@ -1,9 +1,9 @@
 function makeObject(contestants){ 
+    //Makes the array into an object 
     let r1Cont = {}
     for(x = 0; x < contestants.length; x++){
-        r1Cont[contestants[x]] = {"skill" : 10 * Math.random(), "score" : 0 };
+        r1Cont[contestants[x]] = {"skill" : 10 * Math.random(), "score" : 0, "name": contestants[x]};
     }
-    return(r1Cont);
 }
 function randomOrderArray(array){
     let num1; 
@@ -91,4 +91,68 @@ function divHide(){
     for(x = 0; x < list.length; x++){
         list[x].style.display = 'none';
     }
+}
+
+function orderArray(array,object){
+    //getting an an array of object values and sorting it by score
+    let list = Object.values(object);
+    list = list.sort( (a,b) => b.score - a.score);
+    console.log(list);
+
+    //creating a list with just the names but ordered by score
+    let list2 = [];
+    for(x = 0; x < list.length; x++){
+        list2.push(list[x].name);
+    }
+    let finalList = [];
+    let roundsNeeded = 0;
+    let num = list2.length;
+    
+    // determining how many rounds to run the ordering sequence
+    while(num != 1){
+        num = num / 2;
+        roundsNeeded++; 
+    }
+    let roundsDone = 0
+    
+    //doing the first ordering to get the array of arrays 
+    let temp = [];
+    for(x = 0; x < (list2.length / 2); x++){
+            temp.push(list2[x]);
+            temp.push(list2[(list2.length - (x + 1))]);
+            finalList.push(temp);
+            temp = [];
+    }
+    list2 = [];
+    roundsDone++;
+    console.log(finalList);
+
+    //doing the other suffles 
+    while(roundsNeeded > roundsDone){   
+        if((roundsDone % 2) == 0){ //if the round is even 
+                for(x = 0; x < (list2.length / 2); x++){
+                    finalList.push(list2[x]);
+                    finalList.push(list2[(list2.length - (x + 1))]);
+                }
+                list2 = [];
+                console.log("did something!");
+            }
+        else if((roundsDone % 2) == 1){ //if the round is odd 
+                for(x = 0; x < (finalList.length / 2); x++){
+                    list2.push(finalList[x]);
+                    list2.push(finalList[(finalList.length - (x + 1))]);
+                }
+                finalList = [];
+                console.log("did the other thing");
+            }
+            roundsDone++;
+            console.log("while loop works");
+        }
+    if(list2[0]){
+        return(list2);
+    }
+    else if(finalList[0]){
+        return(finalList);
+    }
+
 }
