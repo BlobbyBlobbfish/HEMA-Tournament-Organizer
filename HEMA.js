@@ -1,3 +1,6 @@
+let contestants = ["Dylan", "Eli", "Isabelle", "Blake", "Peyton", "Nora", "Ali", "Jack", "Myles", "Ana", "Elliott", "Tristan", "Lil", "Liam", "Ruby", "Louis", "Victoria", "Cooper", "Theo", "Zayden", "Connor", "Jackson", "Ella", "Cole", "Alexander", "Ryan", "Oliver", "Joshua", "Mila", "Maya", "Ada", "Emilia"]
+
+
 let poolRoundResults = [];
 
 function makeObject(array) {
@@ -39,7 +42,7 @@ function groupMaking(array) {
   let metaArray = [];
   metaArray.push(newerArray);
   let groupLength = groupSize(array);
-  for (let dummy = 1; dummy <= (newArray.length / groupLength); dummy++) {
+  for (let dummy = 1; dummy <= (newArray.length / groupLength) - 1; dummy++) {
     newerArray = newArray.slice((dummy) * groupLength, (dummy * groupLength) + groupLength + 1 );
     for (let parsing of newerArray) {
       if (parsing == undefined) {
@@ -62,10 +65,11 @@ function groupSize(array) {
 function poolPress(array) {
   let button = document.getElementsByTagName('button')[0];
   button.innerHTML = 'SIMULATE COMBAT';
-  document.getElementsByTagName('Table')[0].remove();
+  console.log(document.getElementsByTagName('table'));
+  document.getElementsByTagName('table')[0].remove();
   let metaArray = groupMaking(array);
-  let tabler = document.createElement('Table');
-  document.getElementsByTagName('body')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  let tabler = document.createElement('table');
+  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
   let tableRow = document.createElement('TR');
   tabler.appendChild(tableRow);
   for (parser of metaArray) {
@@ -112,7 +116,7 @@ function combatPress(array, objective) {
   }
   document.getElementsByTagName('TABLE')[0].remove();
   let tabler = document.createElement('Table');
-  document.getElementsByTagName('body')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
   let header = document.createElement('TH');
   tabler.appendChild(header);
   header.innerHTML = "Scores of all Contestants";
@@ -124,7 +128,7 @@ function combatPress(array, objective) {
     }
   }
   tabler = document.createElement('Table');
-  document.getElementsByTagName('body')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
   header = document.createElement('TH');
   tabler.appendChild(header);
   header.innerHTML = "Scores of Qualified Contestants";
@@ -137,6 +141,7 @@ function combatPress(array, objective) {
 }
 
 function poolCombat(fighter1, fighter2, object, array) {
+    console.log("pool combat ran ");
     let skill1 = object[fighter1].skill;
     let skill2 = object[fighter2].skill;
     object[fighter1].score += Math.floor(((1000 * Math.random() + 1000) / (Math.pow(skill2 / skill1, ((Math.random() * 0.25) + 1)))) / array.length);
@@ -224,7 +229,7 @@ function orderArray(array, object) {
 // It also takes the object on the players' personal details.
 // Afterwards, it will display the results of the elimination round through a converging table.
 function elimRound(compArray, object){
- let button = getElementsByTagName("button")[0];
+ let button = document.getElementsByTagName("button")[0];
  button.innerHTML = "Start Elimination Round"
  button.addEventListener('click', function handling () {
    let newCompArray = [];
@@ -232,7 +237,7 @@ function elimRound(compArray, object){
 
    // Functions runs a single game in the elimination round using the fight function, and returns the winner.
    function game (i, x, roundWinners){
-     let winner = fight(newCompArray[i][x][0],newCompArray[i][x][1],object);
+     let winner = poolCombat(newCompArray[i][x][0], newCompArray[i][x][1], object, [1] );
      roundWinners.push(winner);
      return(newCompArray[i][x][0] + "<br> vs " + newCompArray[i][x][1] + "<br>" + winner + "wins");
    }
@@ -271,14 +276,17 @@ function elimRound(compArray, object){
 
    //Functions formats the number of tabs in a row, and runs the game function.
          function elimTab (conCount, cs, i, roundWinners) {
+                let temp = document.createElement('table')
+                temp.id = 'tabElim'
+                document.getElementById("introDiv").appendChild(temp);
                  console.log(cs);
                  let table = document.getElementById("tabElim");
                  let row = table.insertRow(document.getElementById("tabElim").rows.length);
 
                  for (let x = 0; x < conCount; x++) {
-                         let cell = row.insertCell(x);
-                         cell.colSpan = cs;
-       cell.innerHTML = (game(i, x, roundWinners));
+                        let cell = row.insertCell(x);
+                        cell.colSpan = cs;
+                        cell.innerHTML = (game(i, x, roundWinners));
                  }
          }
 
