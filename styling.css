@@ -9,7 +9,7 @@ body {
 header {
   margin-top: -50px;
   margin-bottom: 60px;
-  position : fixed;
+  position : relative;
   right: 0px;
   width : 100%;
   height : 450px;
@@ -46,7 +46,7 @@ button {
 	margin-bottom : 5px;
 	font-size : 18px;
 	background-color: #302E3E;
-	`font-family: 'Righteous', serif;
+	font-family: 'Righteous', serif;
 	border : #FFFFFF;
 	border-radius : 12px;
 	color: #FFFFFF;
