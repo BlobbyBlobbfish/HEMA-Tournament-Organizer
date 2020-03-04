@@ -142,6 +142,7 @@ function combatPress(array, objective) {
 
 function poolCombat(fighter1, fighter2, object, array) {
     console.log("pool combat ran ");
+    console.log(object, fighter1, fighter2);
     let skill1 = object[fighter1].skill;
     let skill2 = object[fighter2].skill;
     object[fighter1].score += Math.floor(((1000 * Math.random() + 1000) / (Math.pow(skill2 / skill1, ((Math.random() * 0.25) + 1)))) / array.length);
