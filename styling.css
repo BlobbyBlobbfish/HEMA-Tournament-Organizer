@@ -71,7 +71,16 @@ button {
 	display: hidden;
 }
 
-
 #resultsDiv {
 	display: hidden;
+}
+
+#tabElim td {
+  border-right: solid #EEFFF7 3px;
+  border-left: solid #EEFFF7 3px;
+  border-bottom: solid #AAAAAA 5px;
+}
+
+#FVTB {
+  font-weight: bold;
 }
