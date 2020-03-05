@@ -54,6 +54,7 @@ button {
 }
 
 #introDiv {
+  display : hidden;
 }
 
 
