@@ -7,29 +7,17 @@ body {
 }
 
 header {
-  margin-top: -70px;
+  /* margin-top: -70px;
   margin-bottom: 60px;
   position : relative;
   right: 0px;
-  width : 100%;
+  width : 100%; */
   height : 490px;
   color: #000000;
   background-color: #ffffff;
   font-size: 60px;
   text-align: center;
   font-family: "Titillium Web", serif;
-}
-
-#bannerAd {
-  position : relative;
-  right: 0px;
-  width : 90%;
-  border:1px solid black;
-}
-
-#logo {
-  position : relative;
-  height: 200px;
 }
 
 table {
@@ -49,25 +37,6 @@ th {
   font-size : 30px;
   font-family : "Odibee Sans", serif;
 }
-
-button {
-	display : inline;
-	position : relative;
-	left : 42.1%;
-	margin-top : 5px;
-	margin-bottom : 5px;
-	font-size : 18px;
-	background-color: #302E3E;
-	font-family: 'Righteous', serif;
-	border : #FFFFFF;
-	border-radius : 12px;
-	color: #FFFFFF;
-	outline : none;
-}
-
-#introDiv {
-}
-
 
 #poolDiv {
 	display: hidden;
@@ -92,5 +61,47 @@ button {
 
 #resultsDiv {
 	display: hidden;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+nav p{
+  margin: 10px;
+  padding: 10px;
+  font-size : 18px;
+	background-color: #302E3E;
+	font-family: 'Righteous', serif;
+	border : #FFFFFF;
+	border-radius : 20px;
+	color: #FFFFFF;
+  outline : none;
+
+}
+button{
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  font-size : 18px;
+	background-color: #302E3E;
+	font-family: 'Righteous', serif;
+	border : #FFFFFF;
+	border-radius : 20px;
+	color: #FFFFFF;
+  outline : none;
+  margin-left:auto;
+  margin-right: auto;
+}
+#brandLogo{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
