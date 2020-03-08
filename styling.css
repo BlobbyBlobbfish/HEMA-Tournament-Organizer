@@ -1,18 +1,18 @@
-/*<!-- AWAD KHALID; MR. CAMPBELL; PROGRAMMING 15-1 2/14/2020 -->*/
+
 body {
-  background-color: #2e8a0a;
+  background-color: #ced9db;
   font-family: 'Solway', serif;
   font-size: 16px;
   text-align: left;
 }
 
 header {
-  margin-top: -50px;
+  /* margin-top: -70px;
   margin-bottom: 60px;
   position : relative;
   right: 0px;
-  width : 100%;
-  height : 400px;
+  width : 100%; */
+  height : 490px;
   color: #000000;
   background-color: #ffffff;
   font-size: 60px;
@@ -38,26 +38,6 @@ th {
   font-family : "Odibee Sans", serif;
 }
 
-button {
-	display : inline;
-	position : relative;
-	left : 42.1%;
-	margin-top : 5px;
-	margin-bottom : 5px;
-	font-size : 18px;
-	background-color: #302E3E;
-	font-family: 'Righteous', serif;
-	border : #FFFFFF;
-	border-radius : 12px;
-	color: #FFFFFF;
-	outline : none;
-}
-
-#introDiv {
-  display : hidden;
-}
-
-
 #poolDiv {
 	display: hidden;
 }
@@ -67,21 +47,61 @@ button {
 	display: hidden;
 }
 
-
-#emlimination2Div {
-	display: hidden;
-}
-
-#resultsDiv {
-	display: hidden;
-}
-
 #tabElim td {
   border-right: solid #EEFFF7 3px;
   border-left: solid #EEFFF7 3px;
   border-bottom: solid #AAAAAA 5px;
 }
 
-#FVTB {
-  font-weight: bold;
+
+#emlimination2Div {
+	display: hidden;
 }
+
+
+#resultsDiv {
+	display: hidden;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+nav p{
+  margin: 10px;
+  padding: 10px;
+  font-size : 18px;
+	background-color: #302E3E;
+	font-family: 'Righteous', serif;
+	border : #FFFFFF;
+	border-radius : 20px;
+	color: #FFFFFF;
+  outline : none;
+
+}
+button{
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  font-size : 18px;
+	background-color: #302E3E;
+	font-family: 'Righteous', serif;
+	border : #FFFFFF;
+	border-radius : 20px;
+	color: #FFFFFF;
+  outline : none;
+  margin-left:auto;
+  margin-right: auto;
+}
+#brandLogo{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+

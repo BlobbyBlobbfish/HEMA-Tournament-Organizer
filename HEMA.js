@@ -22,10 +22,10 @@ function shuffle(array){
     return(array);
 }
 
-function tableRower(array, tableNum) {
+function tableRower(array, tableNum,myNode) {
     for (parsing of (array)) {
       let tableRow = document.createElement('TR');
-      let tabling = document.getElementsByTagName('Table')[tableNum];
+      let tabling = myNode.getElementsByTagName('Table')[tableNum];
       tabling.appendChild(tableRow);
       let tableData = document.createElement('TD');
       tableData.innerHTML = parsing;
@@ -73,14 +73,17 @@ function groupSize(array) {
 }
 
 function poolPress(array) {
-  document.getElementsByTagName('button')[0].remove();
+  console.log('poolPress ran');
+  divHide();
+  document.getElementById("groupDiv").style.display = 'block';
+  let currentDiv = document.getElementById("groupDiv");
   let button = document.createElement('button');
   button.innerHTML = 'SIMULATE COMBAT';
-  document.getElementsByTagName('div')[0].appendChild(button);
-  document.getElementsByTagName('table')[0].remove();
+  document.getElementById('groupDiv').appendChild(button);
+  // document.getElementsByTagName('table')[0].remove();
   let metaArray = groupMaking(array);
   let tabler = document.createElement('table');
-  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  document.getElementById('groupDiv').insertBefore(tabler, button);
   let tableRow = document.createElement('TR');
   tabler.appendChild(tableRow);
   for (parser of metaArray) {
@@ -97,9 +100,9 @@ function poolPress(array) {
       tableRow.appendChild(dater);
     }
   }
-  for (let dummy = 0; dummy < document.getElementsByTagName('TD').length; dummy++) {
-    if (document.getElementsByTagName('TD')[dummy].textContent == 'undefined') {
-      let node = document.getElementsByTagName('TD')[dummy];
+  for (let dummy = 0; dummy < currentDiv.getElementsByTagName('TD').length; dummy++) {
+    if (currentDiv.getElementsByTagName('TD')[dummy].textContent == 'undefined') {
+      let node = currentDiv.getElementsByTagName('TD')[dummy];
       node.remove();
     }
   }
@@ -107,15 +110,19 @@ function poolPress(array) {
 }
 
 function combatPress(array, objective) {
+  console.log("combatPress ran");
+  divHide();
+  let currentDiv =  document.getElementById("scoringDiv");
+  currentDiv.style.display = 'block';
+  button = document.createElement('button');
+  button.innerHTML = "START ELIMINATION ROUND";
+  currentDiv.appendChild(button);
   let middlingArray = [];
   let namesArray = [];
-  document.getElementsByTagName('button')[0].addEventListener('click', function handler () {
-    console.log(array);
+  button.addEventListener('click', function handler () {
     for (parser of array) {
       for (parsing in parser) {
         for (parsimony of parser.slice(parsing + 1, parser.length)) {
-          console.log('hi');
-          console.log(parser.length);
           objective = poolCombat(parser[parsing], parsimony, objective, parser);
           objective =  objective[0];
         }
@@ -128,20 +135,20 @@ function combatPress(array, objective) {
   for (arrayer of middlingArray) {
     arrayer[1] = " Average Score : " + arrayer[1];
   }
-  document.getElementsByTagName('TABLE')[0].remove();
+  //document.getElementsByTagName('TABLE')[0].remove();
   let tabler = document.createElement('Table');
-  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  currentDiv.insertBefore(tabler,button);
   let header = document.createElement('TH');
   tabler.appendChild(header);
   header.innerHTML = "Scores of all Contestants";
-  tableRower(middlingArray, 0);
+  tableRower(middlingArray, 0,currentDiv);
   middlingArray.length = Math.pow(2,Math.floor((Math.log(middlingArray.length)/Math.log(2)) - 1));
   tabler = document.createElement('Table');
-  document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+  currentDiv.insertBefore(tabler,button);
   header = document.createElement('TH');
   tabler.appendChild(header);
   header.innerHTML = "Scores of Qualified Contestants";
-  tableRower(middlingArray, 1);
+  tableRower(middlingArray, 1, currentDiv);
   for (namer of middlingArray) {
     namesArray.push(namer[0]);
   }
@@ -227,12 +234,13 @@ function orderArray(array, object) {
 // It also takes the object on the players' personal details.
 // Afterwards, it will display the results of the elimination round through a converging table.
 function elimRound(compArray, object) {
+  let currentDiv = document.getElementById('elimRoundDiv');
  let middleArray = [];
- let button = document.getElementsByTagName("button")[0];
+ let button = currentDiv.getElementsByTagName("button")[0];
  button.innerHTML = "START ELIMINATION ROUND"
  button.addEventListener('click', function handling () {
-   document.getElementsByTagName('TABLE')[0].remove();
-   document.getElementsByTagName('TABLE')[0].remove();
+   currentDiv.getElementsByTagName('TABLE')[0].remove();
+   currentDiv.getElementsByTagName('TABLE')[0].remove();
    let newCompArray = [];
    newCompArray.push(compArray);
    // Functions runs a single game in the elimination round using the fight function, and returns the winner.
@@ -278,7 +286,7 @@ function elimRound(compArray, object) {
          function elimTab (conCount, cs, i, roundWinners) {
                 let temp = document.createElement('table');
                 temp.id = 'tabElim';
-                document.getElementById("introDiv").appendChild(temp);
+                document.getElementById("elimRoundDiv").appendChild(temp);
                  let table = document.getElementById("tabElim");
                  let row = table.insertRow(document.getElementById("tabElim").rows.length);
                  for (let x = 0; x < conCount; x++) {
@@ -315,9 +323,14 @@ function elimRound(compArray, object) {
 
          let button = document.getElementsByTagName('button')[0];
          button.innerHTML = 'FINAL TALLY'
+
+         button = document.createElement('button');
+         button.innerHTML = 'FINAL TALLY';
+         document.getElementById("elimRoundDiv").appendChild(button);
+
          button.addEventListener('click', function handling () {
            console.log('hello');
-           document.getElementsByTagName('table')[0].remove();
+           currentDiv.getElementsByTagName('table')[0].remove();
            for (player in object) {
              middleArray.push([player, object[player].score[1]]);
            }
@@ -327,18 +340,18 @@ function elimRound(compArray, object) {
              arrayer[1] = " TotalScore : " + arrayer[1];
            }
            let tabler = document.createElement('Table');
-           document.getElementsByTagName('div')[0].insertBefore(tabler, document.getElementsByTagName('button')[0]);
+           document.getElementsByTagName('elimRoundDiv').insertBefore(tabler, currentDiv.getElementsByTagName('button')[0]);
            let header = document.createElement('TH');
            tabler.appendChild(header);
            header.innerHTML = "Final Rankings of all Contestants";
-           tableRower(middleArray, 0);
-           document.getElementsByTagName('button')[0].remove();
+           tableRower(middleArray, 0,  document.getElementById('elimRoundDiv'));
+           currentDiv.getElementsByTagName('button')[0].remove();
          }, {once : true});
  }, {once : true});
 }
 
 function divHide () {
-    let list = getElementByTagName('div');
+    let list = document.getElementsByTagName('div');
     for(dummy = 0; dummy < list.length; dummy++){
         list[dummy].style.display = 'none';
     }
@@ -349,8 +362,36 @@ function handling () {
   return ([]);
 }
 
+function moveAround(event){
+  if(event.target.id == "startingPageButton"){
+    divHide();
+    document.getElementById("introDiv").style.display = 'block';
+  }
+  else if(event.target.id == "groupRoundButton"){
+    divHide();
+    document.getElementById("groupDiv").style.display = 'block';
+  }
+  else if(event.target.id == "poolRoundButton"){
+    divHide();
+    document.getElementById("scoringDiv").style.display = 'block';
+  }
+  else if(event.target.id == "elimRoundButton"){
+    divHide();
+    document.getElementById("elimRoundDiv").style.display = 'block';
+  }
+  else if(event.target.id == "finalTallyButton"){
+    divHide();
+    document.getElementById("finalPlacementDiv").style.display = 'block';
+  }
+}
+
 window.onload = () => {
-  tableRower(contestants, 0);
+  document.getElementById('introDiv').addEventListener("click",moveAround(event));
+  document.getElementById('groupDiv').addEventListener("click",moveAround(event));
+  document.getElementById('scoringDiv').addEventListener("click",moveAround(event));
+  document.getElementById('elimRoundDiv').addEventListener("click",moveAround(event));
+  document.getElementById('finalPlacementDiv').addEventListener("click",moveAround(event));
+  tableRower(contestants, 0,  document.getElementById('introDiv'));
   let button = document.getElementsByTagName('button')[0];
   button.addEventListener('click', handling, {once : true});
 }
