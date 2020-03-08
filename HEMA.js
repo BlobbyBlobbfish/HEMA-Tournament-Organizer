@@ -286,6 +286,12 @@ function elimRound(compArray, object) {
                         cell.colSpan = cs;
                         cell.innerHTML = (game(i, x, roundWinners));
                  }
+              document.getElementsByTagName('TABLE')[1];
+              document.getElementsByTagName('TABLE')[1];
+              document.getElementsByTagName('TABLE')[1];
+              document.getElementsByTagName('TABLE')[1];
+              document.getElementsByTagName('TABLE')[1];
+              document.getElementsByTagName('TABLE')[1];
          }
 
    // Function creates table rows, and elimTab function.
@@ -306,6 +312,7 @@ function elimRound(compArray, object) {
                  }
          }
          createTab(compArray.length);
+
          let button = document.getElementsByTagName('button')[0];
          button.innerHTML = 'FINAL TALLY'
          button.addEventListener('click', function handling () {
