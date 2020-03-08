@@ -351,7 +351,35 @@ function handling () {
   return ([]);
 }
 
+function moveAround(event){
+  if(event.target.id == "startingPageButton"){
+    divHide();
+    document.getElementById("introDiv").style.display = 'block';
+  }
+  else if(event.target.id == "groupRoundButton"){
+    divHide();
+    document.getElementById("groupDiv").style.display = 'block';
+  }
+  else if(event.target.id == "poolRoundButton"){
+    divHide();
+    document.getElementById("scoringDiv").style.display = 'block';
+  }
+  else if(event.target.id == "elimRoundButton"){
+    divHide();
+    document.getElementById("elimRoundDiv").style.display = 'block';    
+  }
+  else if(event.target.id == "finalTallyButton"){
+    divHide();
+    document.getElementById("finalPlacementDiv").style.display = 'block';     
+  }
+}
+
 window.onload = () => {
+  document.getElementById('introDiv').addEventListener("click",moveAround(event));
+  document.getElementById('groupDiv').addEventListener("click",moveAround(event));
+  document.getElementById('scoringDiv').addEventListener("click",moveAround(event));
+  document.getElementById('elimRoundDiv').addEventListener("click",moveAround(event));
+  document.getElementById('finalPlacementDiv').addEventListener("click",moveAround(event));
   tableRower(contestants, 0,  document.getElementById('introDiv'));
   let button = document.getElementsByTagName('button')[0];
   button.addEventListener('click', handling, {once : true});
