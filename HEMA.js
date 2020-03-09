@@ -42,9 +42,11 @@ function tableRower(array, tableNum, myDiv) {
 function groupMaking(array) {
   let newArray = shuffle(array);
   let groupLength = groupSize(array);
+  //Completes first group outside of loop (problems with the first index being 0)
   let newerArray = newArray.slice(0, groupLength);
   let metaArray = [];
   metaArray.push(newerArray);
+  //If there will be the same people in each group
   if (newArray.length % groupLength == 0) {
       for (let dummy = 1; dummy <= (newArray.length / groupLength) - 1; dummy++) {
         newerArray = newArray.slice((dummy) * groupLength, (dummy * groupLength) + groupLength);
@@ -56,6 +58,7 @@ function groupMaking(array) {
         metaArray.push(newerArray);
       }
       return (metaArray);
+  //If there will be an uneven number of people in one group
   } else {
       for (let dummy = 1; dummy <= (newArray.length / groupLength); dummy++) {
         newerArray = newArray.slice((dummy) * groupLength, (dummy * groupLength) + groupLength);
@@ -72,7 +75,7 @@ function groupMaking(array) {
 
 //Determines the size of groups for the pool round (and returns that value)
 function groupSize(array) {
-  //Goes through potential lengths and checks to see whether there are an adequate number of people in every group 
+  //Goes through potential lengths and checks to see whether there are an adequate number of people in every group
   for (dummy = 4; dummy < 10; dummy++ ) {
     if (array.length % dummy !== 2 && array.length % dummy !== 1 ) {
       return(dummy);
