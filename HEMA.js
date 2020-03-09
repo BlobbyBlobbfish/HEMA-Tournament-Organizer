@@ -1,5 +1,4 @@
-let contestants = ["Dylan", "Eli", "Isabelle", "Blake", "Peyton", "Nora", "Ali", "Jack", "Myles", "Ana", "Elliott", "Tristan", "Lil", "Liam", "Ruby", "Louis", "Victoria", "Cooper", "Theo", "Zayden", "Connor", "Jackson", "Ella", "Cole", "Alexander", "Ryan", "Oliver", "Joshua", "Maya", "Ada", "Emilia", "Awad", "David", "Michael", "William", "Novak", "Kai", "Eric", "Dubrovnik", "Ripjaw", "Slasher", "Jas", "Marinus", "Notredamus"];
-
+//this function makes an object with the contestants and their scores,skills
 function makeObject(array) {
     let r1Cont = {}
     for (dummy = 0; dummy < array.length; dummy++){
@@ -7,7 +6,7 @@ function makeObject(array) {
     }
     return(r1Cont);
 }
-
+//this function shuffles an array to create random pairings 
 function shuffle(array){
     let num1;
     let num2;
@@ -21,7 +20,7 @@ function shuffle(array){
     }
     return(array);
 }
-
+//this function fills a table 
 function tableRower(array, tableNum,myNode) {
     for (parsing of (array)) {
       let tableRow = document.createElement('TR');
@@ -32,7 +31,7 @@ function tableRower(array, tableNum,myNode) {
       tableRow.appendChild(tableData);
     }
 }
-
+// this function creates groups for the pool round 
 function groupMaking(array) {
   let newArray = shuffle(array);
   let groupLength = groupSize(array);
@@ -63,7 +62,7 @@ function groupMaking(array) {
       return (metaArray);
   }
 }
-
+//this function determines the group sizes for the pool round 
 function groupSize(array) {
   for (dummy = 4; dummy < 10; dummy++ ) {
     if (array.length % dummy !== 2 && array.length % dummy !== 1 ) {
@@ -71,7 +70,7 @@ function groupSize(array) {
     }
   }
 }
-
+// this function displays the groups for the pool round 
 function poolPress(array) {
   divHide();
   document.getElementById("groupDiv").style.display = 'block';
@@ -107,7 +106,7 @@ function poolPress(array) {
   }
   return [metaArray, button];
 }
-
+//this function runs the pool round 
 function combatPress(array, objective, prevButton) {
   let middlingArray = [];
   let namesArray = [];
@@ -133,7 +132,6 @@ function combatPress(array, objective, prevButton) {
   for (arrayer of middlingArray) {
     arrayer[1] = " Average Score : " + arrayer[1];
   }
-  //document.getElementsByTagName('TABLE')[0].remove();
   let tabler = document.createElement('Table');
   currentDiv.insertBefore(tabler,button);
   let header = document.createElement('TH');
@@ -154,7 +152,7 @@ function combatPress(array, objective, prevButton) {
   return ([]);
   }, {once : true})
 }
-
+//this function is used to simulate combat 
 function poolCombat(fighter1, fighter2, object, array) {
     let skill1 = object[fighter1].skill;
     let skill2 = object[fighter2].skill;
@@ -178,7 +176,7 @@ function poolCombat(fighter1, fighter2, object, array) {
       return [object, fighter2];
     }
 }
-
+//this function orders an array into a seated bracket (array of arrays)
 function orderArray(array, object) {
     //getting an an array of object values and sorting it by score
     let list = Object.values(object);
@@ -336,20 +334,20 @@ function elimRound(compArray, object, previousButton) {
          }, {once : true});
  }, {once : true});
 }
-
+//this function hides all divs on the page
 function divHide () {
     let list = document.getElementsByTagName('div');
     for(dummy = 0; dummy < list.length; dummy++){
         list[dummy].style.display = 'none';
     }
 }
-
+// this function facilitates the pool round 
 function handling () {
   let poolPresser = poolPress(contestants);
   combatPress(poolPresser[0], makeObject(contestants), poolPresser[1]);
   return ([]);
 }
-
+// this function allows for movement through the page 
 function moveAround(event){
   if (event.target.id == "startingPageButton") {
     console.log('hi');
@@ -373,7 +371,7 @@ function moveAround(event){
     document.getElementById("finalPlacementDiv").style.display = 'block';
   }
 }
-
+//this is all the stuff that happens when you load the page including starting the intro page and adding event listeners for the nav
 window.onload = () => {
   document.getElementById('startingPageButton').addEventListener("click", function handling () {
     divHide();
@@ -399,3 +397,4 @@ window.onload = () => {
   let button = document.getElementsByTagName('button')[0];
   button.addEventListener('click', handling, {once : true});
 }
+//thanks for reading our code have a nice day :) 
