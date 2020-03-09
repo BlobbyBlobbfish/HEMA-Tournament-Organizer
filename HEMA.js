@@ -1,17 +1,20 @@
 let contestants = ["Dylan", "Eli", "Isabelle", "Blake", "Peyton", "Nora", "Ali", "Jack", "Myles", "Ana", "Elliott", "Tristan", "Lil", "Liam", "Ruby", "Louis", "Victoria", "Cooper", "Theo", "Zayden", "Connor", "Jackson", "Ella", "Cole", "Alexander", "Ryan", "Oliver", "Joshua", "Maya", "Ada", "Emilia", "Awad", "David", "Michael", "William", "Novak", "Kai", "Eric", "Dubrovnik", "Ripjaw", "Slasher", "Jas", "Marinus", "Notredamus"];
-
+//Function that takes in an array (of contestants), and returns it as an object with properties "skill" and "score"
 function makeObject(array) {
-    let r1Cont = {}
+    let r1Cont = {};
+    //Goes through array and creates a key of the contestant name, with a skill value and score (set to 0)
     for (dummy = 0; dummy < array.length; dummy++){
         r1Cont[array[dummy]] = {"skill" : (6) * Math.random() + 4, "score" : [0, 0] };
     }
     return(r1Cont);
 }
 
+//Function that takes in an array (of contestants), and reorders it in a random fashion (essentially the Kindergarten Shuffle)
 function shuffle(array){
     let num1;
     let num2;
     let temp;
+    //Switches the placement of 2 randomly selected names many times
     for (dummy = 0; dummy < 1000; dummy++){
         num1 = Math.floor(array.length * Math.random());
         num2 = Math.floor(array.length * Math.random());
@@ -22,10 +25,12 @@ function shuffle(array){
     return(array);
 }
 
-function tableRower(array, tableNum,myNode) {
+//Function that takes in an array, table to be attached to, and the div in which the table is in (and resultant rows) to create table rows
+function tableRower(array, tableNum, myDiv) {
+    //Goes through the array, and creates a TR element to be appended to the given table with the values of the array
     for (parsing of (array)) {
       let tableRow = document.createElement('TR');
-      let tabling = myNode.getElementsByTagName('Table')[tableNum];
+      let tabling = myDiv.getElementsByTagName('Table')[tableNum];
       tabling.appendChild(tableRow);
       let tableData = document.createElement('TD');
       tableData.innerHTML = parsing;
@@ -33,6 +38,7 @@ function tableRower(array, tableNum,myNode) {
     }
 }
 
+//Function that takes in an array (of contestants), and reorders them into separate groups for the pool round
 function groupMaking(array) {
   let newArray = shuffle(array);
   let groupLength = groupSize(array);
@@ -64,7 +70,9 @@ function groupMaking(array) {
   }
 }
 
+//Determines the size of groups for the pool round (and returns that value)
 function groupSize(array) {
+  //Goes through potential lengths and checks to see whether there are an adequate number of people in every group 
   for (dummy = 4; dummy < 10; dummy++ ) {
     if (array.length % dummy !== 2 && array.length % dummy !== 1 ) {
       return(dummy);
@@ -139,7 +147,7 @@ function combatPress(array, objective, prevButton) {
   let header = document.createElement('TH');
   tabler.appendChild(header);
   header.innerHTML = "Scores of all Contestants";
-  tableRower(middlingArray, 0,currentDiv);
+  tableRower(middlingArray, 0, currentDiv);
   middlingArray.length = Math.pow(2,Math.floor((Math.log(middlingArray.length)/Math.log(2)) - 1));
   tabler = document.createElement('Table');
   currentDiv.insertBefore(tabler,button);
