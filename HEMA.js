@@ -1,4 +1,4 @@
-let contestants = ["Dylan", "Eli", "Isabelle", "Blake", "Peyton", "Nora", "Ali", "Jack", "Myles", "Ana", "Elliott", "Tristan", "Lil", "Liam", "Ruby", "Louis", "Victoria", "Cooper", "Theo", "Zayden", "Connor", "Jackson", "Ella", "Cole", "Alexander", "Ryan", "Oliver", "Joshua", "Maya", "Ada", "Emilia", "Awad", "David", "Michael", "William", "Novak", "Kai", "Eric", "Dubrovnik", "Ripjaw", "Slasher", "Jas", "Marinus", "Notredamus"];
+/*AWAD KHALID KAI ELRICK ERIC SUN MR. CAMPBELL HEMA TOURNAMENT */
 //Function that takes in an array (of contestants), and returns it as an object with properties "skill" and "score"
 function makeObject(array) {
     let r1Cont = {};
@@ -15,7 +15,7 @@ function shuffle(array){
     let num2;
     let temp;
     //Switches the placement of 2 randomly selected names many times
-    for (dummy = 0; dummy < 1000; dummy++){
+    for (dummy = 0; dummy < 1000; dummy++) {
         num1 = Math.floor(array.length * Math.random());
         num2 = Math.floor(array.length * Math.random());
         temp = array[num1];
@@ -48,9 +48,11 @@ function groupMaking(array) {
   metaArray.push(newerArray);
   //If there will be the same people in each group
   if (newArray.length % groupLength == 0) {
+    //Loops through slicing different sections of the arrays (thus forming the groups) and adding them to an encompassing array
       for (let dummy = 1; dummy <= (newArray.length / groupLength) - 1; dummy++) {
         newerArray = newArray.slice((dummy) * groupLength, (dummy * groupLength) + groupLength);
         for (let parsing of newerArray) {
+          //Takes out any elements that are "undefined"
           if (parsing == undefined) {
             newerArray.length = newerArray.indexOf(parsing) - 1;
           }
@@ -60,9 +62,11 @@ function groupMaking(array) {
       return (metaArray);
   //If there will be an uneven number of people in one group
   } else {
+    //Loops through slicing different sections of the arrays (thus forming the groups) and adding them to an encompassing array
       for (let dummy = 1; dummy <= (newArray.length / groupLength); dummy++) {
         newerArray = newArray.slice((dummy) * groupLength, (dummy * groupLength) + groupLength);
         for (let parsing of newerArray) {
+          //Takes out any elements that are "undefined"
           if (parsing == undefined) {
             newerArray.length = newerArray.indexOf(parsing) - 1;
           }
@@ -83,24 +87,27 @@ function groupSize(array) {
   }
 }
 
+//Function that is triggered when the "Start The Pool Round" button is pressed, taking in an array (of contestants) and returning the array of groups and the button
 function poolPress(array) {
+  //Allowing the groupDiv (containing the relevant info) to be shown, while adding the requisite buttons and table tags
   divHide();
   document.getElementById("groupDiv").style.display = 'block';
   let currentDiv = document.getElementById("groupDiv");
   let button = document.createElement('button');
   button.innerHTML = 'SIMULATE COMBAT';
   document.getElementById('groupDiv').appendChild(button);
-  // document.getElementsByTagName('table')[0].remove();
   let metaArray = groupMaking(array);
   let tabler = document.createElement('table');
   document.getElementById('groupDiv').insertBefore(tabler, button);
   let tableRow = document.createElement('TR');
   tabler.appendChild(tableRow);
+  //Creates header of table of groups
   for (parser of metaArray) {
     let header = document.createElement('TH');
     header.innerHTML = "Group" + (metaArray.indexOf(parser) + 1);
     tableRow.appendChild(header);
   }
+  //Prints out groups in a table
   for (let dummy = 0; dummy < metaArray[0].length; dummy++) {
     let tableRow = document.createElement('TR');
     tabler.appendChild(tableRow);
@@ -109,26 +116,31 @@ function poolPress(array) {
       dater.innerHTML = parser[dummy];
       tableRow.appendChild(dater);
     }
-  }
+  //Removes nodes with a value of undefined
   for (let dummy = 0; dummy < currentDiv.getElementsByTagName('TD').length; dummy++) {
     if (currentDiv.getElementsByTagName('TD')[dummy].textContent == 'undefined') {
       let node = currentDiv.getElementsByTagName('TD')[dummy];
       node.remove();
     }
   }
+}
   return [metaArray, button];
 }
 
+//Function that is ran directly after poolPress, taking in an array (of groups), an object (of contestants and their properties), and a button (SIMULATE COMBAT)
 function combatPress(array, objective, prevButton) {
   let middlingArray = [];
   let namesArray = [];
+  //EventListener created so that when the button is pressed (SIMULATE COMBAT BUTTON), code runs
   prevButton.addEventListener('click', function handler () {
+    //Allows the scoringDiv to be shown while hiding the others and adding the next button
     let currentDiv =  document.getElementById("scoringDiv");
     let button = document.createElement('button');
     button.innerHTML = "START ELIMINATION ROUND";
     currentDiv.appendChild(button);
     divHide();
     currentDiv.style.display = 'block';
+    //Fighting each contestant of a group against each other once
     for (parser of array) {
       for (parsing in parser) {
         for (parsimony of parser.slice(parsing + 1, parser.length)) {
@@ -137,14 +149,23 @@ function combatPress(array, objective, prevButton) {
         }
       }
     }
+  //Creates an array of players and their average scores
   for (player in objective) {
     middlingArray.push([player, objective[player].score[0]]);
   }
+  //Evens out total scores for individuals in a smaller group to make the final tally more fair (extrapolates their average)
+  for (arrayer of array[array.length - 1]) {
+    if (array[array.length - 1].length != array[0].length) {
+      console.log(arrayer);
+      objective[arrayer].score[1] += (objective[arrayer].score[0]) * (array[0].length - array[array.length - 1].length);
+    }
+  }
+  //Sorts that array
   middlingArray = middlingArray.sort(function (a, b) {return b[1] - a[1]});
   for (arrayer of middlingArray) {
     arrayer[1] = " Average Score : " + arrayer[1];
   }
-  //document.getElementsByTagName('TABLE')[0].remove();
+  //Creates table, and creates rows for all contestants and scores, and then rows for only the contestants qualifying for the elimination round
   let tabler = document.createElement('Table');
   currentDiv.insertBefore(tabler,button);
   let header = document.createElement('TH');
@@ -161,20 +182,24 @@ function combatPress(array, objective, prevButton) {
   for (namer of middlingArray) {
     namesArray.push(namer[0]);
   }
+  //Calls elimination round function
+  this.remove();
   elimRound(orderArray(namesArray, objective), objective, button);
-  return ([]);
   }, {once : true})
 }
 
+//Function simulates combat between fighters, taking in the first fighter, second fighter, the object they belong to (the contestans one), and the array they belong to
 function poolCombat(fighter1, fighter2, object, array) {
     let skill1 = object[fighter1].skill;
     let skill2 = object[fighter2].skill;
+    //Creates random scores: score[0] refers to average score (takes into account amount of games played), and score[1] refers to total score
     let firstScore = ((1000 * Math.random() + 1000) / (Math.pow(skill2 / skill1, ((Math.random() * 0.25) + 1))));
     let secondScore = ((1000 * Math.random() + 1000) / (Math.pow(skill1 / skill2, ((Math.random() * 0.25) + 1))));
     object[fighter1].score[0] += Math.floor(firstScore / (array.length - 1));
     object[fighter2].score[0] += Math.floor(secondScore / (array.length - 1));
     object[fighter1].score[1] += Math.floor(firstScore);
     object[fighter2].score[1] += Math.floor(secondScore);
+    //Returns an array of the modified object and the winning fighter (ties broken via skill)
     if (firstScore > secondScore) {
       return [object, fighter1];
     } else if (secondScore > firstScore) {
@@ -208,9 +233,9 @@ function orderArray(array, object) {
     let roundsDone = 0;
     //doing the first ordering to get the array of arrays
     let temp = [];
-    for (x = 0; x < (array.length / 2); x++){
-            temp.push(array[x]);
-            temp.push(array[(array.length - (x + 1))]);
+    for (parsing = 0; parsing < (array.length / 2); parsing++){
+            temp.push(array[parsing]);
+            temp.push(array[(array.length - (parsing + 1))]);
             finalList.push(temp);
             temp = [];
     }
@@ -219,16 +244,16 @@ function orderArray(array, object) {
     //doing the other shuffles
     while (roundsNeeded > roundsDone) {
         if ((roundsDone % 2) == 0){ //if the round is even
-                for(let x = 0; x < (array.length / 2); x++){
-                    finalList.push(array[x]);
-                    finalList.push(array[(array.length - (x + 1))]);
+                for(let indexer = 0; indexer < (array.length / 2); indexer++){
+                    finalList.push(array[indexer]);
+                    finalList.push(array[(array.length - (indexer + 1))]);
                 }
                 array = [];
             }
         else if ((roundsDone % 2) == 1){ //if the round is odd
-                for (let x = 0; x < (finalList.length / 2); x++) {
-                    array.push(finalList[x]);
-                    array.push(finalList[(finalList.length - (x + 1))]);
+                for (let indexer = 0; indexer < (finalList.length / 2); indexer++) {
+                    array.push(finalList[indexer]);
+                    array.push(finalList[(finalList.length - (indexer + 1))]);
                 }
                 finalList = [];
             }
@@ -251,55 +276,55 @@ function elimRound(compArray, object, previousButton) {
    let newCompArray = [];
    newCompArray.push(compArray);
    // Functions runs a single game in the elimination round using the fight function, and returns the winner.
-   function game (i, x, roundWinners){
-     let winner = poolCombat(newCompArray[i][x][0], newCompArray[i][x][1], object, [1, 2])[1];
+   function game (indexer, indices, roundWinners) {
+     let winner = poolCombat(newCompArray[indexer][indices][0], newCompArray[indexer][indices][1], object, [1, 2])[1];
      roundWinners.push(winner);
-     return(newCompArray[i][x][0] + " vs " + newCompArray[i][x][1] + "<br> <span id = FVTB>" + winner + " wins </span>");
+     return(newCompArray[indexer][indices][0] + " vs " + newCompArray[indexer][indices][1] + "<br> <span id = 'FVTB'>" + winner + " wins </span>");
    }
 
    // Function takes in an array of names and sort them into an array of fighting pairs
    //for the next stage in the elimination round, thus an array of arrays.
    function sortRound(array) {
-     let x = array.length;
+
+     let arrayLength = array.length;
      let miniArray = [];
      let returnArray = [];
 
-     for (i = 0; i < x; i++){
-       miniArray.push(array[i]);
+     for (indexer = 0; indexer < arrayLength; indexer++){
+       miniArray.push(array[indexer]);
        if (miniArray.length == 2) {
          returnArray.push(miniArray);
          miniArray = [];
        }
      }
-
      return (returnArray);
    }
 
    //Function determines how many rows on the table would be necessary, given the number of pairs of competitors.
    function powerRow(num) {
                  base = 2;
-                 for (let i = 1; i < num; i++) {
+                 for (let rows = 1; rows < num; rows++) {
                          if (num == 1){
                                  return (1);
                          }
                          else if (base == num) {
-                                 return (i + 1);
+                                 return (rows + 1);
                          }
                          base = base * 2;
                  }
          }
 
    //Functions formats the number of tabs in a row, and runs the game function.
-         function elimTab (conCount, cs, i, roundWinners) {
+         function elimTab (conCount, cs, rows, roundWinners) {
                 let temp = document.createElement('table');
                 temp.id = 'tabElim';
                 document.getElementById("elimRoundDiv").appendChild(temp);
                  let table = document.getElementById("tabElim");
                  let row = table.insertRow(document.getElementById("tabElim").rows.length);
-                 for (let x = 0; x < conCount; x++) {
-                        let cell = row.insertCell(x);
+                 for (let parser = 0; parser < conCount; parser++) {
+                        let cell = row.insertCell(parser);
                         cell.colSpan = cs;
-                        cell.innerHTML = (game(i, x, roundWinners));
+                        cell.innerHTML = (game(rows, parser, roundWinners));
                  }
 
          }
@@ -307,14 +332,10 @@ function elimRound(compArray, object, previousButton) {
    // Function creates table rows, and elimTab function.
          function createTab(conCount) {
                  let newCount = powerRow(conCount);
-
-
                  let cs = 1;
-
-     let roundWinners = [];
-
-                 for (let i = 0; i < newCount; i++) {
-                   elimTab(conCount, cs, i, roundWinners);
+                 let roundWinners = [];
+                 for (let rows = 0; rows < newCount; rows++) {
+                   elimTab(conCount, cs, rows, roundWinners);
                    conCount = conCount / 2;
                    cs = cs * 2;
                    newCompArray.push(sortRound(roundWinners));
@@ -322,29 +343,37 @@ function elimRound(compArray, object, previousButton) {
                  }
          }
          createTab(compArray.length);
-
-         finalButton = document.createElement('button');
+//Creates final button in elimRoundDiv
+         let finalButton = document.createElement('button');
          finalButton.innerHTML = 'FINAL TALLY';
          document.getElementById("elimRoundDiv").appendChild(finalButton);
 
+//Adds event listener to final button
          finalButton.addEventListener('click', function handling () {
+           //Hides and shows appropriate div
            let currentDiv = document.getElementById('finalPlacementDiv');
            divHide();
            currentDiv.style.display = 'block';
+           //Creates array of total scores and players
            for (player in object) {
              middleArray.push([player, object[player].score[1]]);
            }
+           //Sorts that array
            middleArray = middleArray.sort(function (a, b) {return b[1] - a[1]});
            for (arrayer of middleArray) {
+             arrayer[0] = (middleArray.indexOf(arrayer) + 1) + ". " + arrayer[0];
              arrayer[1] = " TotalScore : " + arrayer[1];
            }
+           //Creates a table, and inserts rows of the contestants with their total scores
            let tabler = document.createElement('Table');
            currentDiv.appendChild(tabler);
            let header = document.createElement('TH');
            header.innerHTML = "Final Rankings of all Contestants";
            tableRower(middleArray, 0,  document.getElementById('finalPlacementDiv'));
            tabler.insertBefore(header, currentDiv.getElementsByTagName('TR')[0]);
+           this.remove();
          }, {once : true});
+    this.remove();
  }, {once : true});
 }
 
@@ -356,33 +385,10 @@ function divHide () {
 }
 
 function handling () {
+  this.remove();
   let poolPresser = poolPress(contestants);
   combatPress(poolPresser[0], makeObject(contestants), poolPresser[1]);
   return ([]);
-}
-
-function moveAround(event){
-  if (event.target.id == "startingPageButton") {
-    console.log('hi');
-    divHide();
-    document.getElementById("introDiv").style.display = 'block';
-  }
-  else if(event.target.id == "groupRoundButton"){
-    divHide();
-    document.getElementById("groupDiv").style.display = 'block';
-  }
-  else if(event.target.id == "poolRoundButton"){
-    divHide();
-    document.getElementById("scoringDiv").style.display = 'block';
-  }
-  else if(event.target.id == "elimRoundButton"){
-    divHide();
-    document.getElementById("elimRoundDiv").style.display = 'block';
-  }
-  else if(event.target.id == "finalTallyButton"){
-    divHide();
-    document.getElementById("finalPlacementDiv").style.display = 'block';
-  }
 }
 
 window.onload = () => {
@@ -406,7 +412,7 @@ window.onload = () => {
     divHide();
     document.getElementById("finalPlacementDiv").style.display = 'block';
   });
-  tableRower(contestants, 0,  document.getElementById('introDiv'));
+  tableRower(contestants, 0, document.getElementById('introDiv'));
   let button = document.getElementsByTagName('button')[0];
   button.addEventListener('click', handling, {once : true});
 }
