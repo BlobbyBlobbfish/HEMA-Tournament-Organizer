@@ -343,6 +343,10 @@ function elimRound(compArray, object, previousButton) {
                  }
          }
          createTab(compArray.length);
+//Deletes extra tables
+        currentDiv.getElementsByTagName('table')[1].remove();
+        currentDiv.getElementsByTagName('table')[1].remove();
+        currentDiv.getElementsByTagName('table')[1].remove();
 //Creates final button in elimRoundDiv
          let finalButton = document.createElement('button');
          finalButton.innerHTML = 'FINAL TALLY';
